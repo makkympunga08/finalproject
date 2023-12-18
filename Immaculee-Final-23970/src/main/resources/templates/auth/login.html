@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Login</title>
+    <link rel="shortcut icon" href="images/airtel-logo.png"/>
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: #efc1c1; /* Blue watercolor background */
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .logo-container {
+            text-align: center;
+        }
+
+        .logo {
+            max-width: 200px;
+            height: auto;
+        }
+
+        .form-signin {
+            background: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+            border: 1px solid #fff;
+            border-radius: 4px;
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+        }
+
+        h3 {
+            color: #092756; /* Dark blue text */
+            text-shadow: 0 0 10px rgb(104, 121, 140);
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            margin-bottom: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            border: none;
+            outline: none;
+            padding: 10px;
+            font-size: 13px;
+            color: #fff;
+            text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(0, 0, 0, 0.3);
+            border-radius: 4px;
+            box-shadow: inset 0 -5px 45px rgba(100, 100, 100, 0.2), 0 1px 1px rgba(255, 255, 255, 0.2);
+            transition: box-shadow 0.5s ease;
+        }
+
+        input:focus {
+            box-shadow: inset 0 -5px 45px rgba(100, 100, 100, 0.4), 0 1px 1px rgba(255, 255, 255, 0.2);
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4a77d4;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #4f6491;
+        }
+
+        a {
+            color: #0056b3;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .success-message {
+            color: #4a77d4; /* Dark blue color for success message */
+            margin-top: 10px;
+        }
+
+        .error {
+            color: #ff0000;
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .error li {
+            margin-bottom: 10px;
+        }
+        .error-message {
+            color: #ff0000; /* Red color for error message */
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+<!-- Logo container -->
+<div class="logo-container">
+    <img src="/images/airtel-logo.png" alt="Logo" class="logo" />
+</div>
+
+<form th:action="@{/login}" method="POST" class="form-signin">
+    <h3>Login</h3>
+    <input type="text" name="email" th:placeholder="Email" /> <br /><br />
+    <input type="password" th:placeholder="Password" name="password" /> <br /><br />
+    <button type="submit">Login</button> | <a th:href="@{/register}">Register</a><br />
+    <div th:if="${param.error}" class="error-message"><p>Email or Password is invalid.</p></div> <br />
+</form>
+</body>
+
+</html>

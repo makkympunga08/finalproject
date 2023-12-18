@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>Agent Dashboard</title>
+    <link rel="shortcut icon" href="/images/airtel-logo.png" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"
+          integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous" />
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: url('/images/back.jpg') center center fixed;
+            background-size: cover;
+        }
+
+        .dashboard-container {
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.9); /* Add transparency */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 40px;
+            max-width: 800px;
+            width: 100%;
+            margin: 20px;
+        }
+
+        .logo {
+            max-width: 200px; /* Increase logo size */
+            margin-bottom: 20px;
+            border-radius: 10px; /* Add a border-radius to the logo container */
+        }
+
+        h2 {
+            color: #007bff;
+            margin-bottom: 15px;
+        }
+
+        p {
+            margin: 10px 0;
+            font-size: 16px;
+            color: #555;
+        }
+
+        .navigation {
+            margin-top: 20px;
+        }
+
+        .navigation a {
+            display: inline-block;
+            margin: 0 10px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #fff;
+            transition: background-color 0.3s ease, color 0.3s ease-in-out;
+        }
+
+        .home {
+            background-color: #007bff;
+        }
+
+        .view-claims {
+            background-color: #28a745;
+        }
+
+        .logout {
+            background-color: #dc3545;
+        }
+
+        .navigation a:hover {
+            background-color: #0056b3;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+            overflow: hidden; /* Add overflow property for small screens */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #0056b3;
+            color: white;
+        }
+
+        @media (max-width: 600px) {
+            .dashboard-container {
+                padding: 20px;
+            }
+        }
+
+        .action-links a {
+            display: inline-block;
+            margin: 5px;
+            padding: 8px 15px;
+            text-decoration: none;
+            color: #fff;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease-in-out;
+        }
+
+        .edit-link {
+            background-color: #007bff;
+        }
+
+        .delete-link {
+            background-color: #dc3545;
+        }
+
+        .action-links a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+<div class="dashboard-container">
+    <img src="/images/airtel-logo.png" alt="Logo" class="logo" />
+    <h2>Welcome to Admin Dashboard</h2>
+    <p>Logged as: <span sec:authentication="name"></span></p>
+    <p>Has role: <span sec:authentication="authorities"></span></p>
+
+    <div class="navigation">
+        <a th:href="@{/}" class="home">Home</a>
+        <a th:href="@{/view}" class="view-claims">View Claims</a>
+        <a th:href="@{/logout}" class="logout">Logout</a>
+    </div>
+
+    <h2>All Users</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user, iterStat : ${users}" th:class="${iterStat.odd} ? 'odd'">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.firstName + ' ' + user.lastName}"></td>
+            <td th:text="${user.email}"></td>
+            <td class="action-links">
+                <!-- Edit User Link -->
+                <a th:href="@{/user/edit-user/{id}(id=${user.id})}" class="edit-link">Edit</a>
+
+                <!-- Delete User Link -->
+                <a th:href="@{/user/delete-user/{id}(id=${user.id})}" class="delete-link">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+
+</html>

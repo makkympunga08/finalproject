@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Agent Report</title>
+    <link rel="shortcut icon" href="/images/airtel-logo.png" />
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f7f7;
+            background: url('/images/back.jpg') center center fixed;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 40px;
+            background-color: #fff;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .logo {
+            max-width: 80px;
+            margin-bottom: 20px;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            font-size: 18px;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        textarea {
+            width: calc(100% - 24px);
+            padding: 12px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        input[type="file"] {
+            margin-bottom: 20px;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+<form th:action="@{/clientform}" method="POST" enctype="multipart/form-data" th:object="${refrigeration}">
+    <img src="/images/airtel-logo.png" alt="Logo" class="logo" />
+
+    <label for="client_name">Agent Name:</label>
+    <input type="text" id="client_name" name="client_name" th:field="*{clientName}" required>
+    <label for="client_email">Agent Email:</label>
+    <input type="email" id="client_email" name="client_email" th:field="*{email}" required>
+
+    <label for="client_location">Agent Location:</label>
+   <input type="text" id="client_location" name="client_location" th:field="*{clientLocation}" required>
+
+   <label for="equipment_location">Site Location:</label>
+    <input type="text" id="equipment_location" name="equipment_location" th:field="*{equipmentLocation}" required>
+
+    <label for="phone_number">Phone Number:</label>
+    <input type="tel" id="phone_number" name="phone_number" th:field="*{phoneNumber}" required>
+
+   <label for="work_to_do">Work Done:</label>
+   <textarea id="work_to_do" name="work_to_do" rows="5" th:field="*{workToDo}" required></textarea>
+
+   <label for="work_explanation">Work Explanation:</label>
+   <textarea id="work_explanation" name="work_explanation" rows="5" th:field="*{workExplanation}" required></textarea>
+
+
+
+    <label for="equipment_photo">Site Photo:</label>
+    <input type="file" id="equipment_photo" name="file">
+
+    <input type="submit" value="Submit">
+</form>
+
+<!-- Thymeleaf conditional JavaScript for redirection -->
+<script th:if="${param.success}">
+    setTimeout(function() {
+        window.location.href = '/dashboard';
+    }, 2000); // Redirect after 2 seconds (adjust as needed)
+</script>
+</body>
+
+</html>
